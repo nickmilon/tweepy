@@ -130,7 +130,7 @@ class API(object):
     """ statuses/show """
     get_status = bind_api(
         path = '/statuses/show.json',
-        payload_type = 'status',
+        payload_type = 'json',  #@change:  NM 'status',
         allowed_param = ['id']
     )
 
@@ -182,7 +182,7 @@ class API(object):
 
     _lookup_users = bind_api(
         path = '/users/lookup.json',
-        payload_type = 'user', payload_list = True,
+        payload_type = 'json', payload_list = True, #@change:  NM
         allowed_param = ['user_id', 'screen_name'],
     )
 

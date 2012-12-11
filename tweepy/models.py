@@ -203,15 +203,16 @@ class SearchResult(Model):
 
     @classmethod
     def parse(cls, api, json):
-        result = cls()
-        for k, v in json.items():
-            if k == 'created_at':
-                setattr(result, k, parse_search_datetime(v))
-            elif k == 'source':
-                setattr(result, k, parse_html_value(unescape_html(v)))
-            else:
-                setattr(result, k, v)
-        return result
+        return json   #@change: by NM to return  json
+#        result = cls()
+#        for k, v in json.items():
+#            if k == 'created_at':
+#                setattr(result, k, parse_search_datetime(v))
+#            elif k == 'source':
+#                setattr(result, k, parse_html_value(unescape_html(v)))
+#            else:
+#                setattr(result, k, v)
+#        return result
 
     @classmethod
     def parse_list(cls, api, json_list, result_set=None):
