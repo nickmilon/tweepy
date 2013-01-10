@@ -102,7 +102,7 @@ class OAuthHandler(AuthHandler):
         except Exception, e:
             raise TweepError(e)
 
-    def get_access_token(self, verifier=None):
+    def get_access_token(self, verifier=None,inclRawReponce=False): #@info: we patched it to return if inclRawResponce optionally so it is backward compatible
         """
         After user has authorized the request token, get access token
         with user supplied verifier.
@@ -120,8 +120,9 @@ class OAuthHandler(AuthHandler):
 
             # send request
             resp = urlopen(Request(url, headers=request.to_header()))
-            self.access_token = oauth.OAuthToken.from_string(resp.read())
-            return self.access_token
+            resp_read=resp.read()
+            self.access_token = oauth.OAuthToken.from_string(resp_read)
+            return (self.access_token,resp_read) if inclRawReponce  else self.access_token #@info: we patched it to return (atoken, rawResponce) so we can access screen_nam & user_id
         except Exception, e:
             raise TweepError(e)
 
